@@ -1,5 +1,5 @@
 # Regression
-# Simples Linear Regression, Multiple Simple Linear Regression, Polynomial Regression, Logistic Regression
+ Simples Linear Regression, Multiple Simple Linear Regression, Polynomial Regression, Logistic Regression
 
 
 
