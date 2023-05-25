@@ -3,203 +3,126 @@
 
 
 
-# SIMPLE LINEAR REGRESSION
+#Linear Regression 
+
+import numpy as np
 from sklearn.linear_model import LinearRegression
 
-# Independent variable (A)
-A = []
-num_samples = int(input("Enter the number of samples: "))
-print("Enter the values for A:")
-for _ in range(num_samples):
-    A_value = float(input())
-    A.append([A_value])
+A = np.array(input("Enter the values of independent variable (A): ").split(), dtype=float).reshape((-1, 1))
+B = np.array(input("Enter the values of dependent variable (B): ").split(), dtype=float)
 
-# Dependent variable (B)
-B = []
-print("Enter the values for B:")
-for _ in range(num_samples):
-    B_value = float(input())
-    B.append(B_value)
-
-# Linear Regression Model
 model = LinearRegression()
 
-# Model
 model.fit(A, B)
 
-# Predictions
-A_test = []
-num_test_samples = int(input("Enter the number of test samples: "))
-print("Enter the test values for A:")
-for _ in range(num_test_samples):
-    A_test_value = float(input())
-    A_test.append([A_test_value])
+A_new = np.array(input("Enter the value of new data point: "), dtype=float).reshape((-1, 1))
 
-predictions = model.predict(A_test)
+B_pred = model.predict(A_new)
 
-# Print coefficients and intercept
-print("Coefficients: ", model.coef_)
-print("Intercept: ", model.intercept_)
-
-# Print predictions
-print("Predictions: ", predictions)
+print("Predicted value: ", B_pred[0])
 
 
 
-# MULTIPLE lINEAR REGRESSION
+# Multiple Linear Regression
 
+import numpy as np
 from sklearn.linear_model import LinearRegression
 
-# Independent variables (A)
-A = []
-num_samples = int(input("Enter the number of samples: "))
-num_features = int(input("Enter the number of independent variables: "))
+num_data_points = int(input("Enter the number of data points: "))
+num_independent_variables = int(input("Enter the number of independent variables: "))
 
-print("Enter the values for A:")
-for _ in range(num_samples):
-    A_values = []
-    for _ in range(num_features):
-        A_value = float(input())
-        A_values.append(A_value)
-    A.append(A_values)
+A = np.empty((num_data_points, num_independent_variables))
+B = np.empty(num_data_points)
 
-# Dependent variable (B)
-B = []
-print("Enter the values for B:")
-for _ in range(num_samples):
-    B_value = float(input())
-    B.append(y_value)
+print("Enter the values for independent variables (A): ")
+for i in range(num_data_points):
+    values = input().split()
+    A[i] = [float(value) for value in values]
 
+print("Enter the values for dependent variable (B): ")
+values = input().split()
+B = [float(value) for value in values]
 
-
-# Linear regression model
 model = LinearRegression()
 
-# Model
 model.fit(A, B)
 
-# Predictions
-A_test = []
-num_test_samples = int(input("Enter the number of test samples: "))
-print("Enter the test values for A:")
-for _ in range(num_test_samples):
-    a_test_values = []
-    for _ in range(num_features):
-        a_test_value = float(input())
-        a_test_values.append(a_test_value)
-    A_test.append(a_test_values)
+print("Enter the values for new data point: ")
+new_data = input().split()
+A_new = np.array([float(value) for value in new_data]).reshape((1, -1))
 
-predictions = model.predict(A_test)
+B_pred = model.predict(A_new)
 
-# Coefficients and Intercept
-print("Coefficients: ", model.coef_)
-print("Intercept: ", model.intercept_)
-
-# Predictions
-print("Predictions: ", predictions)
+print("Predicted value: ", B_pred[0])
 
 
 
+# Polynomial Regression
 
-# POLYNOMIAL REGRESSION
-
-from sklearn.linear_model import LinearRegression
+import numpy as np
 from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
 
-# Independent variable (A)
-A = []
-num_samples = int(input("Enter the number of samples: "))
-print("Enter the values for A:")
-for _ in range(num_samples):
-    A_value = float(input())
-    A.append([A_value])
+num_data_points = int(input("Enter the number of data points: "))
+degree = int(input("Enter the degree of polynomial: "))
 
-# Dependent variable (B)
-B = []
-print("Enter the values for B:")
-for _ in range(num_samples):
-    B_value = float(input())
-    B.append(B_value)
+A = np.empty((num_data_points, 1))
+B = np.empty(num_data_points)
 
-# Degree of the polynomial
-D = int(input("Enter the degree of the polynomial: "))
+print("Enter the values for independent variable (A): ")
+for i in range(num_data_points):
+    A[i] = float(input())
 
-# Transform the input data to polynomial features
-poly_features = PolynomialFeatures(degree=D)
+print("Enter the values for dependent variable (B): ")
+for i in range(num_data_points):
+    B[i] = float(input())
+
+poly_features = PolynomialFeatures(degree=degree)
 A_poly = poly_features.fit_transform(A)
 
-# Linear regression model
 model = LinearRegression()
 
-# Model
 model.fit(A_poly, B)
 
-# Predictions
-A_test = []
-num_test_samples = int(input("Enter the number of test samples: "))
-print("Enter the test values for A:")
-for _ in range(num_test_samples):
-    a_test_value = float(input())
-    A_test.append([a_test_value])
+new_data = float(input("Enter the value for new data point: "))
+A_new = np.array([[new_data]])
 
-A_test_poly = poly_features.transform(A_test)
-predictions = model.predict(A_test_poly)
+A_new_poly = poly_features.transform(A_new)
 
-# Coefficients and Intercept
-print("Coefficients: ", model.coef_)
-print("Intercept: ", model.intercept_)
+B_pred = model.predict(A_new_poly)
 
-# Predictions
-print("Predictions: ", predictions)
+print("Predicted value: ", B_pred[0])
 
 
 
-# LOGISTIC REGRESSION
+# Logical Regression
 
+import numpy as np
 from sklearn.linear_model import LogisticRegression
 
-# Independent variables (A)
-A = []
-num_samples = int(input("Enter the number of samples: "))
-num_features = int(input("Enter the number of independent variables: "))
+num_data_points = int(input("Enter the number of data points: "))
+num_features = int(input("Enter the number of features: "))
 
-print("Enter the values for A:")
-for _ in range(num_samples):
-    A_values = []
-    for _ in range(num_features):
-        A_value = float(input())
-        A_values.append(A_value)
-    A.append(x_values)
+A = np.empty((num_data_points, num_features))
+B = np.empty(num_data_points)
 
-# Binary labels (B)
-B = []
-print("Enter the binary labels (0 or 1):")
-for _ in range(num_samples):
-    label = int(input())
-    B.append(label)
+print("Enter the values for features (A): ")
+for i in range(num_data_points):
+    values = input().split()
+    A[i] = [float(value) for value in values]
 
-# Logistic regression model
+print("Enter the values for target variable (B): ")
+values = input().split()
+B = [int(value) for value in values]
+
 model = LogisticRegression()
 
-# Model
 model.fit(A, B)
 
-# Predictions
-A_test = []
-num_test_samples = int(input("Enter the number of test samples: "))
-print("Enter the test values for A:")
-for _ in range(num_test_samples):
-    a_test_values = []
-    for _ in range(num_features):
-        a_test_value = float(input())
-        a_test_values.append(a_test_value)
-    A_test.append(a_test_values)
+print("Enter the values for new data point: ")
+new_data = input().split()
+A_new = np.array([float(value) for value in new_data]).reshape((1, -1))
 
-predictions = model.predict(A_test)
+B_pred = model.predict(X_new)
 
-# Coefficients and Intercept
-print("Coefficients: ", model.coef_)
-print("Intercept: ", model.intercept_)
-
-# Predictions
-print("Predictions: ", predictions)
+print("Predicted value:", B_pred[0])
